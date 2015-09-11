@@ -60,17 +60,24 @@ class AccountContactPermission(object):
 @attributes([Attribute("valkyrie_store", default_factory=list)])
 class ValkyrieStore(object):
     """
+
     Extremely barebones Valkyrie backing store with some direct, static permissions.
+
     No create or delete permissions endpoints are implemented.
     No logic for determining effective permissions from indirect permissions is present.
 
-    A GET on the following URI, for example, should return three effective permissions:
+    A GET on the following URI, for example, should always return three effective permissions:
 
         http://localhost:8900/valkyrie/v2/account/1234/permissions/contacts/devices/by_contact/12/effective
 
     ...while a GET on this URI should return one:
 
         http://localhost:8900/valkyrie/v2/account/1234/permissions/contacts/accounts/by_contact/12/effective
+
+    TODO: some things are only guessed at, since the published Valkyrie docs don't include response code or negative response information
+    TODO: obvious next step would be to implement endpoint /account/{account_number}/permissions/contacts/{accounts,devices}/by_contact/{contact_id}
+    in order to allow dynamic loading of this mock backing store.
+
     """
 
     permissions = []
