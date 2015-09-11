@@ -5,6 +5,7 @@ API Mock for Valkyrie.
 
 from mimic.rest.mimicapp import MimicApp
 
+
 class ValkyrieApi(object):
     """
     Rest endpoints for the Valkyrie API.
@@ -33,17 +34,22 @@ class ValkyrieApi(object):
         """
         return self.core.valkyrie_store.create_token(request)
 
-    @app.route('/account/<string:account_number>/permissions/contacts/accounts/by_contact/<string:contact_id>/effective', methods=['GET'])
+    @app.route('/account/<string:account_number>/permissions/contacts/accounts/by_contact/<string:contact_id>/effective',
+               methods=['GET'])
     def effective_accounts_permissions(self, request, account_number, contact_id):
         """
-        Responds with response code 200 and returns a list of permissions for the given account and contact
+        Responds with response code 200 and returns a list of permissions
+        for the given account and contact
         """
-        return self.core.valkyrie_store.get_accounts_permissions(request, int(account_number), int(contact_id))
+        return self.core.valkyrie_store.get_accounts_permissions(request,
+                                                                 int(account_number), int(contact_id))
 
-    @app.route('/account/<string:account_number>/permissions/contacts/devices/by_contact/<string:contact_id>/effective', methods=['GET'])
+    @app.route('/account/<string:account_number>/permissions/contacts/devices/by_contact/<string:contact_id>/effective',
+               methods=['GET'])
     def effective_devices_permissions(self, request, account_number, contact_id):
         """
-        Responds with response code 200 and returns a list of permissions for the given account and contact
+        Responds with response code 200 and returns a list of permissions
+        for the given account and contact
         """
-        return self.core.valkyrie_store.get_devices_permissions(request, int(account_number), int(contact_id))
-
+        return self.core.valkyrie_store.get_devices_permissions(request,
+                                                                int(account_number), int(contact_id))

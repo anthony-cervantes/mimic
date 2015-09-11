@@ -2,10 +2,10 @@
 Model objects for the Valkyrie mimic.
 """
 from characteristic import attributes, Attribute
-from uuid import uuid4
-from json import loads, dumps
+from json import dumps
 
 from mimic.util.helper import random_hex_generator
+
 
 class AccountContactPermission(object):
     """
@@ -37,7 +37,7 @@ class AccountContactPermission(object):
         1: "accounts",
         2: "devices"}
 
-    def __init__ (self, account_number, contact_id, permission_type, item_id, item_type_id):
+    def __init__(self, account_number, contact_id, permission_type, item_id, item_type_id):
         self.account_number = account_number
         self.contact_id = contact_id
         self.permission_type = permission_type
@@ -57,6 +57,7 @@ class AccountContactPermission(object):
             "item_type_name": self.item_type_name
         }
 
+
 @attributes([Attribute("valkyrie_store", default_factory=list)])
 class ValkyrieStore(object):
     """
@@ -73,10 +74,6 @@ class ValkyrieStore(object):
     ...while a GET on this URI should return one:
 
         http://localhost:8900/valkyrie/v2/account/1234/permissions/contacts/accounts/by_contact/12/effective
-
-    TODO: some things are only guessed at, since the published Valkyrie docs don't include response code or negative response information
-    TODO: obvious next step would be to implement endpoint /account/{account_number}/permissions/contacts/{accounts,devices}/by_contact/{contact_id}
-    in order to allow dynamic loading of this mock backing store.
 
     """
 
@@ -102,7 +99,8 @@ class ValkyrieStore(object):
 
     def get_accounts_permissions(self, request, account_number, contact_id):
         """
-        Find and format the set of permissions held on account items by the given contact for the given account.
+        Find and format the set of permissions held on account items by
+        the given contact for the given account.
         """
         pm = []
         for p in self.permissions:
@@ -113,15 +111,16 @@ class ValkyrieStore(object):
             request.setResponseCode(404)
             return b''
 
-        response_message = { "contact_permissions": [] }
+        response_message = {"contact_permissions": []}
         for p in pm:
-            response_message['contact_permissions'].append(p.json( ))
+            response_message['contact_permissions'].append(p.json())
 
         return dumps(response_message)
 
     def get_devices_permissions(self, request, account_number, contact_id):
         """
-        Find and format the set of permissions held on device items by the given contact for the given account.
+        Find and format the set of permissions held on device items by
+        the given contact for the given account.
         """
         pm = []
         for p in self.permissions:
@@ -132,9 +131,8 @@ class ValkyrieStore(object):
             request.setResponseCode(404)
             return b''
 
-        response_message = { "contact_permissions": [] }
+        response_message = {"contact_permissions": []}
         for p in pm:
-            response_message['contact_permissions'].append(p.json( ))
+            response_message['contact_permissions'].append(p.json())
 
         return dumps(response_message)
-
