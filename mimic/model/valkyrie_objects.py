@@ -64,11 +64,11 @@ class ValkyrieStore(object):
     No create or delete permissions endpoints are implemented.
     No logic for determining effective permissions from indirect permissions is present.
 
-    The following URI, for example, should return three effective permissions:
+    A GET on the following URI, for example, should return three effective permissions:
 
         http://localhost:8900/valkyrie/v2/account/1234/permissions/contacts/devices/by_contact/12/effective
 
-    while this URI should return one:
+    ...while a GET on this URI should return one:
 
         http://localhost:8900/valkyrie/v2/account/1234/permissions/contacts/accounts/by_contact/12/effective
     """
@@ -101,7 +101,7 @@ class ValkyrieStore(object):
         for p in self.permissions:
             if p.account_number == account_number and p.contact_id == contact_id and p.item_type_id == 1:
                 pm.append(p)
-        
+
         if len(pm) == 0:
             request.setResponseCode(404)
             return b''
@@ -120,7 +120,7 @@ class ValkyrieStore(object):
         for p in self.permissions:
             if p.account_number == account_number and p.contact_id == contact_id and p.item_type_id == 2:
                 pm.append(p)
-        
+
         if len(pm) == 0:
             request.setResponseCode(404)
             return b''
