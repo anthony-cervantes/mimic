@@ -34,7 +34,7 @@ class ValkyrieApi(object):
         """
         return self.core.valkyrie_store.create_token(request)
 
-    @app.route('/account/<string:account_number>/permissions/contacts/accounts/by_contact/<string:contact_id>/effective',
+    @app.route('/account/<int:account_number>/permissions/contacts/accounts/by_contact/<int:contact_id>/effective',
                methods=['GET'])
     def effective_accounts_permissions(self, request, account_number, contact_id):
         """
@@ -42,9 +42,9 @@ class ValkyrieApi(object):
         for the given account and contact
         """
         return self.core.valkyrie_store.get_accounts_permissions(request,
-                                                                 int(account_number), int(contact_id))
+                                                                 account_number, contact_id)
 
-    @app.route('/account/<string:account_number>/permissions/contacts/devices/by_contact/<string:contact_id>/effective',
+    @app.route('/account/<int:account_number>/permissions/contacts/devices/by_contact/<int:contact_id>/effective',
                methods=['GET'])
     def effective_devices_permissions(self, request, account_number, contact_id):
         """
@@ -52,4 +52,4 @@ class ValkyrieApi(object):
         for the given account and contact
         """
         return self.core.valkyrie_store.get_devices_permissions(request,
-                                                                int(account_number), int(contact_id))
+                                                                account_number, contact_id)
